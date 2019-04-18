@@ -56,19 +56,31 @@ function getOrders() {
             document.getElementById('ajax-orders').innerHTML += myOrderHTML
         })
     })
+
+
 }
+
+// previously, the $(document).on.... that is below was in the getOrders() function above
+// this doesn't necessarily create an issue, but it makes a bit more sense to have this happen
+// when the page is loaded, rather than after the getOrders() function exectutes. Moving lines 67-89
+// back into getOrders() still worked, so I'd put it where it makes the most sense to you. I'd
+// caution moving it up though simply because it creates some confusion having the ajax request for 
+// both orders.json and orders/id.json coming from the same function block
 
 $(document).on('click', ".show_link", function (e) {
     e.preventDefault()
     $('div#notice.container').html('')
     let id = $(this).attr('data-id')
 
+
+// in the ajax request here, used string substitution to grab just the meal in question
     $.ajax({
         url: `http://localhost:3000/orders/${id}.json`,
         method: 'get'
     }).done(function (response) {
         console.log("response: ", response);
 
+// there was a map function here which wasn't needed since the response received back is just 1 item and not an array
         let myOrder = new Order(response)
 
         console.log(myOrder)
