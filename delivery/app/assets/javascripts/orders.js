@@ -64,22 +64,21 @@ $(document).on('click', ".show_link", function (e) {
     let id = $(this).attr('data-id')
 
     $.ajax({
-        url: "http://localhost:3000/orders/.json",
+        url: `http://localhost:3000/orders/${id}.json`,
         method: 'get'
     }).done(function (response) {
-
         console.log("response: ", response);
-        response.map(order => {
-            let myOrder = new Order(response)
-            console.log(myOrder)
-            let orderHTML = myOrder.formatShow()
 
-            // console.log('you just hit showOrders')
-            // clearout pg
-            // 'div#notice.container'
-            $('div#notice.container').append(orderHTML)
-            // $('data-id').innerHTML = orderHTML
-        })
+        let myOrder = new Order(response)
+
+        console.log(myOrder)
+        let orderHTML = myOrder.formatShow()
+        
+        // console.log('you just hit showOrders')
+        // clearout pg
+        // 'div#notice.container'
+        $('div#notice.container').append(orderHTML)
+        // $('data-id').innerHTML = orderHTML
     })
 })
 
