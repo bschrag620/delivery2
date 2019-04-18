@@ -56,32 +56,32 @@ function getOrders() {
             document.getElementById('ajax-orders').innerHTML += myOrderHTML
         })
     })
-    $(document).on('click', ".show_link", function (e) {
-        e.preventDefault()
-        $('div#notice.container').html('')
-        let id = $(this).attr('data-id')
+}
 
-        $.ajax({
-            url: "http://localhost:3000/orders.json",
-            method: 'get'
-        }).done(function (response) {
+$(document).on('click', ".show_link", function (e) {
+    e.preventDefault()
+    $('div#notice.container').html('')
+    let id = $(this).attr('data-id')
 
-            console.log("response: ", response);
-            response.map(order => {
-                let myOrder = new Order(response)
-                console.log(myOrder)
-                let orderHTML = myOrder.formatShow()
+    $.ajax({
+        url: "http://localhost:3000/orders/.json",
+        method: 'get'
+    }).done(function (response) {
 
-                // console.log('you just hit showOrders')
-                // clearout pg
-                // 'div#notice.container'
-                $('div#notice.container').append(orderHTML)
-                // $('data-id').innerHTML = orderHTML
-            })
+        console.log("response: ", response);
+        response.map(order => {
+            let myOrder = new Order(response)
+            console.log(myOrder)
+            let orderHTML = myOrder.formatShow()
+
+            // console.log('you just hit showOrders')
+            // clearout pg
+            // 'div#notice.container'
+            $('div#notice.container').append(orderHTML)
+            // $('data-id').innerHTML = orderHTML
         })
     })
-
-}
+})
 
 
 
